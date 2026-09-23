@@ -1,0 +1,1359 @@
+:root {
+            --color-background: hsl(210, 100%, 100%);
+            --color-text: #000000;
+            --color-primary: #1a7889;
+            
+            /* The key to neumorphism: light and dark shadows */
+            --color-light-shadow: rgba(255, 255, 255, 0.9);
+            --color-dark-shadow: rgba(163, 177, 198, 0.6);
+
+            --font-family-sans-serif: cursive;
+            --font-weight-bold: 600;
+
+            /* Neumorphism requires soft shapes */
+            --border-radius-soft: 12px;
+            
+            --navbar-height: 100px;
+            --navbar-padding: 1.5rem;
+            --container-width: 1140px;
+            --transition-speed: 0.2s;
+        }
+
+        /*
+        ========================================
+        Global Resets & Neumorphic Base Styles
+        ========================================
+        */
+        
+*,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: cursive;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--color-text);
+          
+            
+           
+
+        }
+
+        .homepage{
+             min-height: 100vh;
+    padding: 30px 20px 60px;
+background-color: rgba(255, 255, 255, 0.8);
+
+background-image:
+    repeating-linear-gradient(
+        to bottom,
+        rgb(255, 255, 255) 0,
+        rgb(255, 255, 255) 5px,
+        transparent 5px,
+        transparent 10px
+    ),
+    linear-gradient(
+        to right,
+       rgba(123, 205, 233, 0.6) 1px,
+        transparent 1px
+    );
+
+background-size: 100% 100%, 25px 100%;
+margin-top: 1.5%;
+        }
+
+
+        .homepage-container{
+max-width: 1000px;
+    margin: 0 auto;
+        }
+
+        
+
+        /* Add some placeholder content */
+        body::after {
+            display: block;
+            text-align: center;
+            height: 200vh;
+            padding: 5rem 1rem;
+            color: #9aa7bb;
+        }
+        
+        ul { list-style: none; margin: 0; padding: 0; }
+        a { text-decoration: none; color: inherit; }
+
+        /*
+        ========================================
+        Main Navbar Structure
+        ========================================
+        The main navbar gets the "extruded" or "pushed out" effect.
+        */
+        .navbar {
+            height: var(--navbar-height);
+            display: flex;
+            align-items: center;
+            background-color: var(--color-background);
+            
+                       
+        }
+
+        .navbar__container {
+             display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    max-width: none;
+    margin: 0;
+
+    padding: 0 var(--navbar-padding) 0 0;
+     box-shadow: 4px 4px 8px var(--color-dark-shadow),
+                       -4px -4px 8px var(--color-light-shadow);
+            
+        }
+
+        
+        .navbar__brand img {
+            
+
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    margin-top: 5px;
+                      
+  
+}
+        .navbar__brand img:hover {
+    transform: rotate(8deg) scale(1.1);
+}
+        
+        /*
+        ========================================
+        Mobile Menu & Hamburger Toggle
+        ========================================
+        The toggle button is a prime example of a neumorphic element.
+        */
+        .navbar__toggle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: var(--border-radius-soft);
+                         background-color: var(--color-background); 
+
+
+  /* Keep the background fixed in place while scrolling */
+  background-attachment: fixed;
+            cursor: pointer;
+            z-index: 1001; 
+            box-shadow: 4px 4px 8px var(--color-dark-shadow),
+                       -4px -4px 8px var(--color-light-shadow);
+            transition: box-shadow var(--transition-speed) ease;
+        }
+        
+        /* On press, the button looks "pushed in" */
+        .navbar__toggle:active,
+        .navbar__toggle.is-active {
+            box-shadow: inset 4px 4px 8px var(--color-dark-shadow),
+                        inset -4px -4px 8px var(--color-light-shadow);
+        }
+
+        .navbar__toggle .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-text);
+            transition: all var(--transition-speed) ease-in-out;
+            border-radius: 3px;
+        }
+
+        /* Use relative positioning for easier transform origin control */
+        .navbar__toggle .bar {
+            position: relative;
+        }
+
+        .navbar__toggle .bar::before,
+        .navbar__toggle .bar::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-text);
+            border-radius: 3px;
+            transition: transform var(--transition-speed) ease-in-out;
+        }
+
+        .navbar__toggle .bar::before { transform: translateY(-8px); }
+        .navbar__toggle .bar::after { transform: translateY(8px); }
+
+        /* 'X' animation on active state */
+        .navbar__toggle.is-active .bar { background-color: transparent; }
+        .navbar__toggle.is-active .bar::before { transform: translateY(0) rotate(45deg); }
+        .navbar__toggle.is-active .bar::after { transform: translateY(0) rotate(-45deg); }
+        
+        .navbar__menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            top: var(--navbar-height);
+            left: 0;
+            background-color: var(--color-background);
+            padding: 1rem 0;
+            box-shadow: 6px 6px 12px var(--color-dark-shadow);
+            z-index: 1000;
+        }
+        
+        .navbar__menu.is-active { display: flex; }
+
+        .navbar__item { text-align: center; }
+
+        .navbar__link {
+            display: block;
+            padding: 1.5rem;
+            font-weight: var(--font-weight-bold);
+            transition: color var(--transition-speed) ease;
+        }
+        
+        .navbar__link:hover, .navbar__link:focus {
+             color: var(--color-primary);
+        }
+        
+        /* A clearly visible, accessible focus outline */
+        :is(.navbar__toggle, .navbar__link):focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 4px;
+            border-radius: var(--border-radius-soft);
+        }
+        
+        /* Remove default button focus for aesthetic harmony with focus-visible */
+        .navbar__toggle:focus {
+            outline: none;
+        }
+
+        /*
+        ========================================
+        Desktop Navbar Styles (Responsive)
+        ========================================
+        */
+        @media (min-width: 768px) {
+            .navbar__toggle {
+                display: none;
+            }
+
+            .navbar {
+                box-shadow: none; /* The main bar becomes flat */
+                background: transparent;
+            }
+
+            .navbar__menu {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                position: static;
+                width: auto;
+                background-color: transparent;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .navbar__list {
+                display: flex;
+                align-items: center;
+            }
+
+            .navbar__item { margin-left: 0.5rem; }
+
+            .navbar__link {
+                display: block;
+                padding: 0.75rem 1.25rem;
+                border-radius: var(--border-radius-soft);
+                box-shadow: 4px 4px 8px var(--color-dark-shadow),
+                           -4px -4px 8px var(--color-light-shadow);
+                transition: box-shadow var(--transition-speed) ease, color var(--transition-speed) ease;
+            }
+
+            /* The "pushed in" effect on hover/focus */
+            .navbar__link:hover, .navbar__link:focus, .navbar__link--active {
+                box-shadow: inset 4px 4px 8px var(--color-dark-shadow),
+                            inset -4px -4px 8px var(--color-light-shadow);
+                color: var(--color-primary);
+            }
+
+            .navbar__item--cta { margin-left: 1rem; }
+
+            .navbar__link--cta {
+                font-weight: var(--font-weight-bold);
+                color: var(--color-primary);
+            }
+        }
+        
+        /**********************************************************/
+        
+
+
+   .overlay{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.5);
+
+    justify-content:center;
+
+    align-items:center;
+    z-index: 9999;
+}
+.overlay.active{
+
+    display:flex;
+}
+
+
+.modallLogin {
+    position: relative;
+
+    width: 500px;
+    height: 450px;
+
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+    
+
+
+     
+}
+
+
+/* عنوان Login */
+.modallLogin h2 {
+    margin: 0 0 10px 0;
+  
+}
+
+
+/* الفورم */
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+/* حقول تسجيل الدخول */
+.loginFelids {
+    position: relative;
+    
+    width: 300px;
+    height: 45px;
+
+    padding: 12px;
+
+    border: 3px solid #88f5eb;
+    border-radius: 12px;
+
+    box-sizing: border-box;
+}
+
+
+/* زر Login */
+#LoginSubmit {
+    width: 220px;
+    height: 40px;
+
+    border: none;
+    border-radius: var(--border-radius-soft);
+background-color: rgba(56, 223, 235, 0.688);
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 25px;
+     font-family: cursive;
+}
+
+
+/* رسالة الخطأ / النجاح */
+#loginMessage {
+    margin: 0;
+     font-family: cursive;
+     color: red;
+}
+
+
+/* زر Create Account */
+#newAccount {
+
+    width: 310px;
+    height: 45px;
+background-color: rgba(50, 186, 172, 0.89);
+    font-weight: bold;
+ font-family: cursive;
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    margin-bottom: 30px;
+}
+
+
+/* زر الإغلاق */
+#closeModalLogin {
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #ff0000;
+}
+
+#closeModalLogin:hover {
+    color: #000;
+}
+
+
+.modalRegister {
+    position: relative;
+
+    width: 500px;
+    height: 650px;
+
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+/* عنوان Create Account */
+.modalRegister h2 {
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+
+/* الفورم */
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.loginFelids:focus {
+    border-color:rgba(50, 186, 172, 0.89);
+    outline: none;
+}
+
+
+/* Gender */
+#registerForm > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 5px;
+}
+
+
+/* زر Create Account */
+#submitR {
+    width: 180px;
+    height: 45px;
+font-family: cursive;
+    border: none;
+    border-radius: 12px;
+background-color: rgba(56, 223, 235, 0.688);
+
+    cursor: pointer;
+
+    margin-top: 45px;
+
+    font-weight: 700;
+}
+
+
+/* رسالة الخطأ / النجاح */
+#message {
+    margin: 0;
+}
+
+
+/* زر الإغلاق */
+#closeModalRegister {
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #ff0000;
+}
+
+#closeModalRegister:hover {
+    color: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   Create Post Button
+========================= */
+
+.createPostButton {
+    position: fixed;
+
+    right: 35px;
+    bottom: 35px;
+
+    width: 65px;
+    height: 65px;
+
+    border: none;
+    border-radius: 50%;
+background-color:  rgba(123, 205, 233);
+    
+
+    color: rgb(0, 0, 0);
+
+    font-size: 35px;
+    font-weight: 300;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+    transition: 0.3s ease;
+
+    z-index: 1000;
+}
+
+.createPostButton:hover {
+    transform: scale(1.08);
+}
+
+
+/* =========================
+   Modal Background
+========================= */
+
+.postModal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2000;
+}
+
+
+/* لما نضيف active يظهر المودال */
+
+.postModal.active {
+    display: flex;
+}
+
+
+/* =========================
+   Create Post Box
+========================= */
+
+.createPostBox {
+    position: relative;
+
+    width: 500px;
+    max-width: 90%;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+
+    animation: postModalAnimation 0.25s ease;
+}
+
+
+/* Animation */
+
+@keyframes postModalAnimation {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================
+   Close Button
+========================= */
+
+.closePostModal {
+    position: absolute;
+
+    top: 15px;
+    right: 18px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #555;
+}
+
+.closePostModal:hover {
+    color: #000;
+}
+
+
+/* =========================
+   Title
+========================= */
+
+.createPostBox h2 {
+    margin-bottom: 25px;
+
+    font-size: 28px;
+}
+
+
+/* =========================
+   Form
+========================= */
+
+#createPostModal input,
+#createPostModal textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 3px solid  rgba(50, 186, 172, 0.89);
+
+    border-radius: 10px;
+
+    padding: 13px 15px;
+
+    margin-bottom: 15px;
+
+    font-size: 15px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    transition: 0.2s ease;
+}
+
+
+#createPostModal textarea {
+    width: 100%;
+    min-height: 150px;
+
+    resize: none;
+
+    box-sizing: border-box;
+}
+
+
+/* Focus */
+
+#createPostModal input:focus,
+#createPostModal textarea:focus {
+
+    border-color: rgba(50, 186, 172, 0.89);
+
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   Publish Button
+========================= */
+
+.publishButton {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #000;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+
+.publishButton:hover {
+    background: #333;
+}
+
+
+
+/* =========================
+   Posts Container
+========================= */
+
+#postsContainer {
+
+    width: 100%;
+    max-width: 850px;
+   
+    margin: 100px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 25px;
+
+    padding: 20px;
+    
+   
+   
+}
+
+
+/* =========================
+   Post Card
+========================= */
+
+.post {
+
+    background: white;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 18px;
+margin-top: 5%;
+    padding: 25px;
+
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s ease;
+
+    min-height: 150px;
+
+    overflow: visible;
+   
+
+}
+
+
+.post-header {
+    position: relative;
+    width: 100%;
+    height: 150px;
+     z-index: 0;
+}
+
+
+.postusertheme {
+    position: absolute;
+
+    left: 0;
+    top: -10px;
+
+    width: 100%;
+    height: 150px;
+
+
+    border-radius: 10px;
+
+    z-index: 1;
+}
+
+/* =========================
+   Post User
+========================= */
+
+.post-user {
+
+     position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding-left: 20px;
+
+    z-index: 2;
+}
+
+
+.post-user img {
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 2px solid #eee;
+}
+
+.post-username{
+    
+    font-size: 20px;
+text-decoration: bold;
+    font-weight: 600;
+}
+.post-user span {
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   Post Title
+========================= */
+
+.post h2 {
+
+    margin: 0 0 12px;
+
+    font-size: 24px;
+
+    color: #222;
+}
+
+
+/* =========================
+   Post Content
+========================= */
+
+.post p {
+
+    color: #000000;
+    font-size: 16px;
+
+    overflow-wrap: break-word;
+        direction: auto;
+
+}
+
+
+/* =========================
+   Post Image
+========================= */
+
+.post-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.post-image {
+    width: 200px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.post-image:hover {
+    transform: scale(1.02);
+}
+
+
+.image-modal {
+    display: none;
+
+    position: fixed;
+    z-index: 9999;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.8);
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    cursor: pointer;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+.expanded-image {
+    max-width: 90%;
+    max-height: 90%;
+
+    object-fit: contain;
+
+    border-radius: 12px;
+
+    cursor: default;
+}
+
+.close-image-modal {
+    position: absolute;
+
+    top: 20px;
+    right: 30px;
+
+    font-size: 40px;
+    color: white;
+
+    cursor: pointer;
+
+    z-index: 10000;
+}
+
+
+
+
+/* ========================================= */
+/* ACCOUNT PAGE */
+/* ========================================= */
+
+.account-page {
+    min-height: 100vh;
+    padding: 30px 20px 60px;
+    background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.8);
+
+    background-image: radial-gradient(
+        rgba(123, 205, 233, 0.5) 1px,
+        rgba(255, 255, 255, 0.8) 1px
+    );
+
+    background-size: 10px 10px;
+    margin-top: 1.5%;
+}
+
+.account-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    
+}
+
+.profile-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 20px 20px 30px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.cover-image-wrapper {
+    width: 100%;
+    height: 220px;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #cfcfcf;
+}
+
+.cover-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.28);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.cover-image-wrapper:hover .cover-overlay {
+    opacity: 1;
+}
+
+.account-image-section {
+    display: flex;
+    justify-content: center;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+}
+
+.profile-image-wrapper {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #edf1f6;
+    background: #cccccc;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.profile-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.38);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.profile-image-wrapper:hover .image-overlay {
+    opacity: 1;
+}
+#usernameTitle {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.account-bio-section {
+    width: 75%;
+    margin: 20px auto 0;
+    padding: 22px;
+    border-radius: 18px;
+    background: #b8e7f2;
+    transition: background-color 0.3s ease;
+}
+
+.bio-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.bio-top-row h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #1f2937;
+}
+
+.edit-btn,
+.save-btn {
+    border: none;
+    border-radius: 20px;
+    background: #ffffff;
+    border: #000 solid 1px;
+    
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.edit-btn:hover,
+.save-btn:hover {
+    transform: translateY(-1px);
+}
+
+.bio-display {
+    min-height: 60px;
+    margin: 10px 0 0;
+    color: #1f2937;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.bio-input {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 15px;
+    margin-top: 10px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+}
+
+.edit-controls {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.color-picker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-picker-row label {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+#themeColorPicker {
+    width: 55px;
+    height: 35px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.message-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #0f172a;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ========================================= */
+/* USER POSTS */
+/* ========================================= */
+
+.user-posts-section {
+    background: #b8e7f2;
+    border-radius: 24px;
+    padding: 30px 25px;
+    min-height: 300px;
+}
+
+.user-posts-section h3 {
+    margin-top: 0;
+    color: #1f2937;
+    font-size: 28px;
+}
+
+.user-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.user-post-card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.user-post-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.user-post-card h4 {
+    margin: 0 0 8px;
+    color: #111827;
+}
+
+.user-post-card p {
+    margin: 0;
+    color: #000000;
+    line-height: 1.6;
+}
+
+.no-posts {
+    color: #374151;
+    font-size: 18px;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    .account-bio-section {
+        width: 95%;
+    }
+
+    .cover-image-wrapper {
+        height: 170px;
+    }
+
+    .profile-image-wrapper {
+        width: 110px;
+        height: 110px;
+    }
+
+    .bio-top-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+
+
+
+
+.user-post-card {
+    position: relative;
+}
+
+
+.delete-post-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+
+    width: 25px;
+    height: 25px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: white;
+    color: #555;
+
+    font-size: 20px;
+    line-height: 20px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.delete-post-btn:hover {
+    background: #eeeeee;
+    color: red;
+}
+
+
+
+.profile-page{
+    
+    min-height: 100vh;
+    padding: 30px 20px 60px;
+    background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.8);
+
+    background-image: radial-gradient(
+        rgba(123, 205, 233, 0.5) 1px,
+        rgba(255, 255, 255, 0.8) 1px
+    );
+
+    background-size: 10px 10px;
+  margin-top: 1.5%;
+}
+
+
+.profile-page-container{
+    
+    max-width: 1000px;
+    margin: 0 auto;
+}

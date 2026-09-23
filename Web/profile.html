@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="/css.css">
+</head>
+
+<body>
+
+<header class="navbar" role="banner">
+    <div class="navbar__container">
+
+        <a href="/Main.html" class="navbar__brand">
+            <img src="/logo-Photoroom.png" alt="Website Logo">
+        </a>
+
+        <button
+            class="navbar__toggle"
+            id="navbarToggle"
+            aria-label="Toggle navigation"
+            aria-controls="navbarMenu"
+            aria-expanded="false">
+
+            <span class="bar"></span>
+        </button>
+
+        <nav
+            id="navbarMenu"
+            class="navbar__menu"
+            role="navigation"
+            aria-labelledby="navbarToggle">
+
+            <ul class="navbar__list">
+
+                <li class="navbar__item">
+                    <a href="/Main.html" class="navbar__link">
+                        Home
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+</header>
+
+
+<main  id="publicProfilePage" class="profile-page">
+
+    <div class="profile-page-container">
+
+        <section class="profile-card">
+
+            <!-- Cover Image -->
+            <div class="cover-image-wrapper">
+
+                <img
+                    id="coverImage"
+                    src="/default-cover.jpg"
+                    alt="Cover image">
+
+            </div>
+
+
+            <!-- Profile Image -->
+            <div class="account-image-section">
+
+                <div class="profile-image-wrapper">
+
+                    <img
+                        id="accountProfileImage"
+                        src="/default-profile.png"
+                        alt="Profile picture">
+
+                </div>
+
+            </div>
+
+
+            <!-- Username -->
+            <div>
+
+                <h2 id="usernameTitle">
+                    Username
+                </h2>
+
+            </div>
+
+
+            <!-- About Me -->
+            <div class="account-bio-section" >
+
+                <p
+                    id="bioDisplay"
+                    class="bio-display">
+
+                    About me...
+
+
+                </p>
+            </div>
+<p id="themeColorPicker"> </p>
+        </section>
+
+    </div>
+
+</main>
+
+<script src="/js.js"></script>
+
+</body>
+</html>
