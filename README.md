@@ -1,4 +1,4 @@
-<img width="1588" height="4366" alt="localhost_3000_accountPage html" src="https://github.com/user-attachments/assets/9e7313d5-7a70-4d56-a834-457f03c46da6" /># Blog Website
+# Blog Website
 
 A simple blog website I created to learn and improve my skills in **Node.js and server-side development**.
 
